@@ -1,0 +1,62 @@
+# Byte-Compiled / Optimized / DLL Files
+__pycache__/
+*.py[cod]
+
+# C Extensions
+*.so
+
+# Distribution / Packaging
+.Python
+env/
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer Logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit Test / Coverage Reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django
+*.log
+*.pot
+
+# Sphinx Documentation
+docs/_build/
+
+# Bash
+*.sh
+
+# Sublime Text
+*.sublime*
+
+# Virtual Environment Folders
+.virtualenv/
