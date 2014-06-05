@@ -26,5 +26,5 @@ setup(name="Flask-AdamCunnington",
           "Programming Language :: Python :: 3.4",
           "Topic :: Internet :: WWW/HTTP :: Dynamic Content"],
       keywords="adam cunnington adamcunnington adamcunnington.info",
-      packages=find_packages(exlude=".virtualenv"),
-      install_requires=["flask", "flask-httpauth", "flask-sqlalchemy"])
+      packages=find_packages(exclude=".virtualenv"),
+      install_requires=["Flask", "Flask-HTTPAuth", "Flask-SQLAlchemy"])
