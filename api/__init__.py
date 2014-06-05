@@ -25,13 +25,16 @@ def _bad_request_error(error):
 
 
 @api.before_request
-# Make these parameter values configurable (but how - pass to this app somehow)
-@decorators.rate_limit(limit=5, per=15)
+@token.before_request
+@decorators.rate_limit
 @auth.auth.login_required
+@auth.token_auth.login_required
 def _before_request():
     pass
 
 
+@api.errorhandler(errors.InvalidQueryError)
+@token.errorhandler(errors.InvalidQueryError)
 @api.errorhandler(errors.LookupError)
 @token.errorhandler(errors.LookupError)
 def _lookup_error(error):
@@ -46,6 +49,5 @@ def _not_found_error(error):
 
 @token.route("/request-token")
 @decorators.no_cache
-@auth.token_auth.login_required
 def _request_token():
     return flask.jsonify({"token": flask.g.user.generate_auth_token()})

@@ -3,52 +3,43 @@
 import flask
 
 
+class InvalidQueryError(Exception):
+    """Invalid query parameter value(s)."""
+
+
 class LookupError(Exception):
-    """Data not found in the database"""
+    """Data not found in the database."""
 
 
 def not_modified():
-    response = flask.jsonify({"status": 304, "error": "not modified"})
-    response.status_code = 304
-    return response
+    return flask.make_response(flask.jsonify({"error": "not modified"}), 304)
 
 
 def bad_request(message):
-    response = flask.jsonify({"status": 400, "error": "bad request",
-                              "message": message})
-    response.status_code = 400
-    return response
+    return flask.make_response(flask.jsonify({"error": "bad request",
+                                              "message": message}), 400)
 
 
 def unauthorised(message):
-    response = flask.jsonify({"status": 401, "error": "unauthorised",
-                              "message": message})
-    response.status_code = 401
-    return response
+    return flask.make_response(flask.jsonify({"error": "unathorised",
+                                             "message": message}), 401)
 
 
 def forbidden(message):
-    response = flask.jsonify({"status": 403, "error": "forbidden",
-                              "message": message})
-    response.status_code = 403
-    return response
+    return flask.make_response(flask.jsonify({"error": "forbidden",
+                                              "message": message}), 403)
 
 
 def not_found(message):
-    response = flask.jsonify({"status": 404, "error": "not found",
-                              "message": message})
-    response.status_code = 404
-    return response
+    return flask.make_response(flask.jsonify({"error": "not found",
+                                              "message": message}), 404)
 
 
 def precondition_failed():
-    response = flask.jsonify({"status": 412, "error": "precondition failed"})
-    response.status_code = 412
-    return response
+    return flask.make_response(flask.jsonify({"error": "precondition failed"}),
+                               412)
 
 
 def too_many_requests(message, limit=None):
-    response = flask.jsonify({"status": 429, "error": "too many requests",
-                              "limit": limit, "message": message})
-    response.status_code = 429
-    return response
+    return flask.make_response(flask.jsonify({"error": "too many requests",
+                                              "message": message}), 429)

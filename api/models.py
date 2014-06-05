@@ -5,17 +5,16 @@ import flask
 import itsdangerous
 
 
-class APIProfile(flask.g.database.Model):
+class APIProfile(flask.g.db.Model):
     __tablename__ = "api_profiles"
-    id = flask.g.database.Column(flask.g.database.Integer, primary_key=True)
-    username = flask.g.database.Column(flask.g.database.String(64), index=True,
-                                       unique=True)
-    password = flask.g.database.Column(flask.g.database.String(128))
+    id = flask.g.db.Column(flask.g.db.Integer, primary_key=True)
+    username = flask.g.db.Column(flask.g.db.String(64), index=True,
+                                 nullable=False, unique=True)
+    password = flask.g.db.Column(flask.g.db.String(128))
 
     def generate_auth_token(self, expires_in=None):
-        # Stop referencing literal string, SECRET_KEY
         serialiser = itsdangerous.TimedJSONWebSignatureSerializer(
-            flask.current_app["SECRET_KEY"], expires_in=expires_in)
+            flask.current_app.secret_key, expires_in=expires_in)
         return serialiser.dumps({"id": self.id}).decode("UTF-8")
 
     def set_password(self, password):
@@ -23,9 +22,8 @@ class APIProfile(flask.g.database.Model):
 
     @staticmethod
     def verify_auth_token(token):
-        # Stop referencing literal string, SECRET_KEY
         serialiser = itsdangerous.TimedJSONWebSignatureSerializer(
-            flask.current_app["SECRET_KEY"])
+            flask.current_app.secret_key)
         try:
             data = serialiser.loads(token)
         except itsdangerous.BadSignature, itsdangerous.SignatureExpired:
