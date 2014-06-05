@@ -26,7 +26,7 @@ def implement_etag(return_value):
     return return_value
 
 
-def modify_cache_control(return_value, *directives):
+def set_cache_control(return_value, *directives):
     return_value = flask.make_response(return_value)
     return_value.headers["Cache-Control"] = ", ".join(directives)
     return return_value

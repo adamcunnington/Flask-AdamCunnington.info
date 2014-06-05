@@ -16,7 +16,7 @@ def control_cache(*directives):
     def decorator(function):
         @functools.wraps(function)
         def wrapped(*args, **kwargs):
-            return utilities.modify_cache_control(function(*args, **kwargs))
+            return utilities.set_cache_control(function(*args, **kwargs))
         return wrapped
     return decorator
 
