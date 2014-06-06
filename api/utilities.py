@@ -36,7 +36,7 @@ def implement_etag(return_value):
     assert (flask.request.method in ["HEAD", "GET"],
             "etag is only supported for GET requests")
     response = flask.make_response(return_value)
-    etag = "\"" + hashlib.md5(response.get_data()).hexdigest() + "\""
+    etag = "\"%s\"" % hashlib.md5(response.get_data()).hexdigest()
     response.headers["ETag"] = etag
     if_match = flask.request.headers.get("If-Match")
     if_none_match = flask.request.headers.get("If-None-Match")
@@ -95,6 +95,8 @@ def paginate(query, item_function, page=1, max_per_page=10):
 def rate_limit(limit=None, period=None):
     if limit is None:
         limit = flask.current_app.config["RATE_LIMIT"]
+    elif limit == 0:
+        return
     if period is None:
         period = flask.current_app.config["RATE_LIMIT_PERIOD"]
     key = "rate-limit/%s/%s/" % (flask.request.endpoint,
