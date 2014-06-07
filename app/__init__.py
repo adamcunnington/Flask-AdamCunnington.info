@@ -2,6 +2,7 @@
 
 from logging import handlers
 import logging
+import os
 
 from flask.ext import sqlalchemy
 import flask
@@ -27,13 +28,14 @@ def app(config):
                                                  "Function: %(funcName)s\n"
                                                  "Time: %(asctime)s\n"
                                                  "%(message)s"))
-    file_handler = handlers.FileHandler()
+    email_handler.setLevel(logging.ERROR)
+    file_handler = handlers.FileHandler(os.path.join(os.path.dirname(__file__),
+                                                     "..", ".log"))
     file_handler.setFormatter(logging.Formatter("%(asctime)s (%(levelname)s) "
                                                 "-> %(message)s "
                                                 "[in %(pathname)s: "
                                                 "%(lineno)d]"))
-    for handler in (email_handler, file_handler):
-        handler.setLevel(logging.ERROR)
+    file_handler.setLevel(logging.WARNING)
     for logger in (app.logger, logging.getLogger("sqlalchemy")):
         for handler in (email_handler, file_handler):
             logger.addHandler(handler)
