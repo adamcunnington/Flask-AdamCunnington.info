@@ -9,7 +9,7 @@ from . import config
 from api import models
 import app
 
-_app = app.app(config.config[os.getenv("AC_CONFIG") or "development"])
+_app = app.app_factory(config.config[os.getenv("AC_CONFIG") or "development"])
 _manager = script.Manager(_app)
 
 _env_file_path = os.path.join(os.path.dirname(__file__), ".env")

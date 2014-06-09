@@ -60,3 +60,6 @@ docs/_build/
 
 # Virtual Environment Folders
 .virtualenv/
+
+# Other Repositories SymLink'ed
+api
