@@ -4,20 +4,15 @@ from logging import handlers
 import logging
 import os
 
-from flask.ext import sqlalchemy
 import flask
-
-from .. import api
-
-flask.g.db = db = sqlalchemy.SQLAlchemy()
 
 
 def app_factory(config):
     app = flask.Flask(__name__)
     app.config.from_object(config)
-    email_handler = handlers.SMTPHandler(app.config["EMAIL_SMTP_SERVER"],
-                                         app.config["EMAIL_SENDER_ADDRESS"],
-                                         app.config["EMAIL_RECIPIENT_ADDRESS"],
+    email_handler = handlers.SMTPHandler(config.EMAIL_SMTP_SERVER,
+                                         config.EMAIL_SENDER_ADDRESS,
+                                         config.EMAIL_RECIPIENT_ADDRESS,
                                          "Failure @ "
                                          "http://www.adamcunnington.info",
                                          secure=())
@@ -39,7 +34,14 @@ def app_factory(config):
     for logger in (app.logger, logging.getLogger("sqlalchemy")):
         for handler in (email_handler, file_handler):
             logger.addHandler(handler)
+    if config.USE_API:
+        from .. import api
+        app.register_blueprint(api.user, subdomain="api")
+        app.register_blueprint(api.token)
+        flask.g.db = db = api.models.db
+    else:
+        from flask.ext import sqlalchemy
+        flask.g.db = db = sqlalchemy.SQLAlchemy()
     db.initapp(app)
-    app.register_blueprint(api.api, subdomain="api")
-    app.register_blueprint(api.token, url_prefix="/auth")
+
     return app

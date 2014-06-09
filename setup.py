@@ -27,5 +27,5 @@ setup(name="Flask-AdamCunnington",
           "Topic :: Internet :: WWW/HTTP :: Dynamic Content"],
       keywords="adam cunnington adamcunnington adamcunnington.info",
       packages=find_packages(exclude=".virtualenv"),
-      install_requires=["Flask", "Flask-HTTPAuth", "Flask-Script",
-                        "Flask-SQLAlchemy", "Redis"])
+      install_requires=["coverage", "Flask", "Flask-HTTPAuth", "Flask-Script",
+                        "Flask-SQLAlchemy", "Nose", "Redis"])
