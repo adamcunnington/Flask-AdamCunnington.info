@@ -8,7 +8,7 @@ from flask.ext import script
 import flask
 
 from . import config
-from api import models
+from app import models
 import app
 
 _app = app.app_factory(config.config[os.getenv("AC_CONFIG") or "development"])
