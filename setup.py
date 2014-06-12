@@ -2,9 +2,16 @@
 
 from setuptools import setup, find_packages
 
+
+def get_readme():
+    with open("README.md") as f:
+        return f.read()
+
+
 setup(name="Flask-AdamCunnington",
-      version="1.0",
+      version="0.1",
       description="The contents of http://adamcunnington.info",
+      long_description=get_readme(),
       author="Adam Cunnington",
       author_email="ac@adamcunnington.info",
       license="GPLv3",
@@ -27,5 +34,13 @@ setup(name="Flask-AdamCunnington",
           "Topic :: Internet :: WWW/HTTP :: Dynamic Content"],
       keywords="adam cunnington adamcunnington adamcunnington.info",
       packages=find_packages(exclude=".virtualenv"),
-      install_requires=["coverage", "Flask", "Flask-HTTPAuth", "Flask-Script",
-                        "Flask-SQLAlchemy", "Nose", "Redis"])
+      install_requires=[
+          "coverage",
+          "Flask",
+          "Flask-HTTPAuth",
+          "Flask-Script",
+          "Flask-SQLAlchemy",
+          "nose",
+          "redis"],
+      test_requires=[
+          ""])

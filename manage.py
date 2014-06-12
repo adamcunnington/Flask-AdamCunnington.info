@@ -7,7 +7,7 @@ import subprocess
 from flask.ext import script
 import flask
 
-from . import config
+import config
 from app import models
 import app
 
@@ -54,7 +54,7 @@ def test():
                      "--cover-html-dir=cover"])
 
 
-def run():
+def main():
     _env_file_path = os.path.join(os.path.dirname(__file__), ".env")
     if os.path.isfile(_env_file_path):
         with open(_env_file_path) as f:
@@ -67,4 +67,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    main()
