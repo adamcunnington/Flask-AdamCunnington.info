@@ -7,8 +7,8 @@ import subprocess
 from flask.ext import script
 import flask
 
-import config
 from app import models
+import config
 import app
 
 _app = app.app_factory(config.config[os.getenv("AC_CONFIG") or "development"])
