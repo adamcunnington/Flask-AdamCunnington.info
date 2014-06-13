@@ -55,9 +55,9 @@ def test():
 
 
 def main():
-    _env_file_path = os.path.join(os.path.dirname(__file__), ".env")
-    if os.path.isfile(_env_file_path):
-        with open(_env_file_path) as f:
+    env_file_path = os.path.join(os.path.dirname(__file__), ".env")
+    if os.path.isfile(env_file_path):
+        with open(env_file_path) as f:
             for line in f:
                 if "=" in line:
                     os.putenv(*line.strip().split("=", 1))
