@@ -42,5 +42,4 @@ setup(name="Flask-AdamCunnington",
           "Flask-SQLAlchemy",
           "nose",
           "redis"],
-      test_requires=[
-          ""])
+      test_requires=[])
